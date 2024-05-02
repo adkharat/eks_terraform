@@ -10,8 +10,10 @@
 .terraform/
 .vagrant/
 
-# SSH Keys
+# Ignore sensitive files
 *.pem
+*.key
+*.pub
 
 # Backup files
 *.bak
@@ -24,6 +26,18 @@
 
 # Ignored vscode files
 .vscode/
+
+# Ignore override files as they are usually used to override resources locally and so
+# are not checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
 
 # Ignore Any Generated JSON Files
 operations/automation-script/apply.json
