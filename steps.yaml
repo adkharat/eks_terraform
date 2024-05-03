@@ -121,6 +121,7 @@ kubectl get events
 
 TODO : Fix
 DB Password issue - use plain password
+DB pool sizing
 
 Benchmarking using Apache tool : 
 Note : By default present on Mac
