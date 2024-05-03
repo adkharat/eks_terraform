@@ -126,3 +126,20 @@ Benchmarking using Apache tool :
 Note : By default present on Mac
 ulimit -n 10000
 https://vyspiansky.github.io/2019/12/02/apache-bench-for-load-testing/
+
+
+
+## Prometheous
+kubectl get svc -n prometheus
+kubectl edit svc kube-prometheus-stackr-prometheus -n prometheus
+
+## Grafana
+kubectl get svc -n prometheus
+kubectl edit svc kube-prometheus-stackr-grafana -n prometheus
+The username is admin, and the password is prom-operator
+
+## ArgoCD
+kubectl edit service argocd-server -n argocd
+kubectl get secret -n argocd 
+kubectl edit secret argocd-initial-admin-secret -n argocd 
+echo [YOUR-ENCODED-PASSWORD]] | base64 —decode
