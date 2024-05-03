@@ -121,5 +121,8 @@ kubectl get events
 
 TODO : Fix
 DB Password issue - use plain password
-custom resource definitions (CRDs) before helm alb controller (not required)
-Check Node Autoscaling
+
+Benchmarking using Apache tool : 
+Note : By default present on Mac
+ulimit -n 10000
+https://vyspiansky.github.io/2019/12/02/apache-bench-for-load-testing/
