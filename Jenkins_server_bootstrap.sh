@@ -9,6 +9,13 @@ sudo apt-get install openjdk-17-jre -y
 #check Installed Java Version
 java -version
 
+#Release apt-get lock in case if its locked
+#Issue : Could not get lock /var/lib/dpkg/lock-frontend
+sudo rm /var/lib/apt/lists/lock
+sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock*
+sudo dpkg --configure -a
+
 # Download Jenkins keyring
 sudo wget -O /usr/share/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
 
@@ -63,7 +70,7 @@ newgrp docker
 sudo systemctl restart docker
 
 # Change the permissions of docker socket to be able to connect to the docker daemon
-sudo chmod 666 /var/run/docker.sock
+sudo chmod 777 /var/run/docker.sock
 
 # Run SonarQube on Jenkin server for continuous inspection of code quality on host port 9000
 #https://hub.docker.com/_/sonarqube
