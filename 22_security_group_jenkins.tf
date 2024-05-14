@@ -12,10 +12,17 @@ resource "aws_security_group" "jenkins_server_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  #allow inbound HTTP traffic from anywhere
+  #allow inbound HTTP traffic for Jenkin dashboard from anywhere on port 8080
   ingress {
     from_port   = 8080
     to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+    #allow inbound HTTP traffic for SonarQube dashboard from anywhere on port 9000
+  ingress {
+    from_port   = 9000
+    to_port     = 9000
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

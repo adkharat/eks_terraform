@@ -4,7 +4,7 @@
 sudo apt-get update
 
 #install OpenJDK 17
-sudo apt-get install openjdk-11-jre -y
+sudo apt-get install openjdk-17-jre -y
 
 #check Installed Java Version
 java -version
@@ -65,5 +65,13 @@ sudo systemctl restart docker
 # Change the permissions of docker socket to be able to connect to the docker daemon
 sudo chmod 666 /var/run/docker.sock
 
-# Check if docker can be run without root
-#docker run hello-world
+# Run SonarQube on Jenkin server for continuous inspection of code quality on host port 9000
+#https://hub.docker.com/_/sonarqube
+docker run -d --name sonarqube -p 9000:9000 sonarqube:lts-community
+
+#Installation of trivy to scan Vulnerability of docker images
+sudo apt-get install wget apt-transport-https gnupg lsb-release -y
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+sudo apt-get update
+sudo apt-get install trivy
