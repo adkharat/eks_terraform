@@ -48,9 +48,9 @@ terraform {
   required_version = ">= 0.13"
 
   backend "s3" {
-    bucket = "terraformstateaks"
-    key    = "terraform.tfstate"
-    region = "us-east-1"
+    bucket         = "terraformstateaks"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
     dynamodb_table = "state-locking"
   }
 

@@ -39,6 +39,8 @@ module "vpc" {
   tags     = local.common_tags
   vpc_tags = local.common_tags
 
+  manage_default_network_acl = true
+
   # Additional Tags to Subnets needed by Ingress controller 
   public_subnet_tags = {
     Type                                            = "Public Subnets"
