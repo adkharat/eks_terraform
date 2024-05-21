@@ -74,7 +74,7 @@ sudo chmod 777 /var/run/docker.sock
 
 # Run SonarQube on Jenkin server for continuous inspection of code quality on host port 9000
 #https://hub.docker.com/_/sonarqube
-docker run -d --name sonarqube -p 9000:9000 sonarqube:lts-community
+# docker run -d --name sonarqube -p 9000:9000 sonarqube:lts-community
 
 #Installation of trivy to scan Vulnerability of docker images
 sudo apt-get install wget apt-transport-https gnupg lsb-release -y
