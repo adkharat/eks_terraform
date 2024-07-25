@@ -17,11 +17,14 @@ resource "aws_security_group" "bastion_host" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags = {
+    Name = var.bastion_security_group_name
+  }
 }
 
-
+#Need to attach EKS cluster
 resource "aws_security_group" "bastion_host_to_cluster" {
-  name        = "bastion host to cluster "
+  name        = "sg_bastion_host_to_cluster"
   description = "Allow 443 from bastion to cluster"
   vpc_id      = module.vpc.vpc_id
 
@@ -38,6 +41,10 @@ resource "aws_security_group" "bastion_host_to_cluster" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+    tags = {
+      Name = "sg_bastion_host_to_cluster"
+    }
 
   depends_on = [ aws_security_group.bastion_host ]
 }
@@ -66,5 +73,10 @@ resource "aws_iam_role" "bastion_host_iam_role" {
   tags = {
     tag-key = "bastion_host_iam_role"
   }
+}
+
+resource "aws_iam_instance_profile" "bastion_host_iam_instance_profile" {
+  name = "bastion_host_iam_instance_profile"
+  role = aws_iam_role.bastion_host_iam_role.name
 }
 

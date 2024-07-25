@@ -6,12 +6,13 @@ module "ec2_bastion_instance" {
 
   name                   = "Bastion-Instance"
   ami                    = "ami-0c101f26f147fa7fd" #Amazon Linux UPDATE as PER YOUR REGION
-  instance_type          = "t2.small"
+  instance_type          = "t2.micro"
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [aws_security_group.bastion_host.id]
   key_name               = var.ec2_key_name
 
-  iam_role_name = aws_iam_role.bastion_host_iam_role.name #This role later will be added in cluster aws-auth config to access cluster from bastion vm
+  iam_instance_profile = aws_iam_instance_profile.bastion_host_iam_instance_profile.name
+   #This role later will be added in cluster aws-auth config to access cluster from bastion vm
 
   # Bootstrap script for Amazon Linux
   user_data = file("Bastion_host_bootstrap.sh")
