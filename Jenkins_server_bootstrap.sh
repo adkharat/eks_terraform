@@ -64,7 +64,7 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 
 # Log in to the new docker group (to avoid having to log out / log in again; but if not enough, try to reboot):
-newgrp docker
+sudo newgrp docker
 
 #restart the docker
 sudo systemctl restart docker

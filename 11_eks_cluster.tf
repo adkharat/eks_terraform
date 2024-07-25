@@ -5,9 +5,9 @@ module "eks" {
 
   cluster_name                         = var.eks-cluster-name
   cluster_version                      = var.eks-cluster-version
-  cluster_endpoint_public_access       = true
-  cluster_endpoint_private_access      = false
-  cluster_endpoint_public_access_cidrs = ["0.0.0.0/0"]
+  cluster_endpoint_public_access       = false
+  cluster_endpoint_private_access      = true
+  # cluster_endpoint_public_access_cidrs = ["0.0.0.0/0"]
 
   cluster_addons = {
     coredns = {
@@ -23,6 +23,7 @@ module "eks" {
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = flatten([module.vpc.public_subnets, module.vpc.private_subnets])
+  cluster_additional_security_group_ids = [aws_security_group.bastion_host_to_cluster.id]
 
   # create OpenID Connect Provider for EKS to enable IRSA
   enable_irsa = true
