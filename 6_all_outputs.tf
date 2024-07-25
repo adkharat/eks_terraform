@@ -132,6 +132,10 @@ output "eks_cluster_iam_role_unique_id" {
   value = module.eks.cluster_iam_role_unique_id
 }
 
+output "bastion_host_to_cluster_security_group_arn" {
+  value = aws_security_group.bastion_host_to_cluster.arn
+}
+
 output "eks_cluster_security_group_arn" {
   value = module.eks.cluster_security_group_arn
 }

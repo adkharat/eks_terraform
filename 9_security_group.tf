@@ -38,7 +38,33 @@ resource "aws_security_group" "bastion_host_to_cluster" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  depends_on = [ aws_security_group.bastion_host ]
 }
 
+#We are creating a rule that allows any EC2 instance to assume or take on this IAM role
+##This role later will be added in cluster aws-auth config to access cluster from bastion vm
+resource "aws_iam_role" "bastion_host_iam_role" {
+  name = "bastion_host_iam_role"
 
+  # Terraform's "jsonencode" function converts a
+  # Terraform expression result to valid JSON syntax.
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      },
+    ]
+  })
+
+  tags = {
+    tag-key = "bastion_host_iam_role"
+  }
+}
 

@@ -1,5 +1,5 @@
 # https://medium.com/cloud-native-daily/aws-bastion-instance-using-terraform-module-f5df2d309f98
-
+# https://registry.terraform.io/modules/terraform-aws-modules/ec2-instance/aws/latest
 module "ec2_bastion_instance" {
   depends_on = [module.vpc]
   source     = "terraform-aws-modules/ec2-instance/aws"
@@ -10,6 +10,8 @@ module "ec2_bastion_instance" {
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [aws_security_group.bastion_host.id]
   key_name               = var.ec2_key_name
+
+  iam_role_name = aws_iam_role.bastion_host_iam_role.name #This role later will be added in cluster aws-auth config to access cluster from bastion vm
 
   # Bootstrap script for Amazon Linux
   user_data = file("Bastion_host_bootstrap.sh")
